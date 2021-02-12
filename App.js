@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Dimensions, useState, TouchableHighlight} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, Dimensions, useState, TouchableHighlight, TouchableOpacity} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,12 +10,12 @@ const windowHeight = Dimensions.get('window').height;
 export default class App extends Component{
   clear = () =>{
     this.setState({
-    usd : null,
-    gbp : null,
-    btc : null,
-    eth : null,
-    dogecoin : null,
-    tiValue: null,
+      usd : null,
+      gbp : null,
+      btc : null,
+      eth : null,
+      dogecoin : null,
+      tiValue: null,
     })
 };
 
@@ -48,10 +48,10 @@ export default class App extends Component{
      
     if(this.state.eth > 0){
       this.setState({
-        usd: this.state.eth * 1335,
+        usd: this.state.eth * 1335.0,
         gbp: this.state.eth * 974.60,
         btc: this.state.eth * .042,
-        dogecoin: this.state.etc * 94354,
+        dogecoin: this.state.eth * 94354.0,
      })}
 
     if(this.state.dogecoin > 0){
@@ -77,7 +77,7 @@ export default class App extends Component{
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Image
-            style={{ height:windowWidth/9, width: windowWidth/9}}
+            style={{ height:windowWidth*.2, width: windowWidth*.2}}
             source={{uri:'https://images-na.ssl-images-amazon.com/images/I/510WmeXkLXL.png'}}
           />
         </View>
@@ -86,24 +86,23 @@ export default class App extends Component{
           <View style={styles.textInputCont}>
           <Text>USD : {this.state.usd}</Text>
             <TextInput
-              placeholder = "USD"
+              defaultValue = " "
+              placeholder = {" "}
               style={styles.txtBox}
               onChangeText={ (theText) => {
                 this.setState({
-                  usd : +(theText),  
-                })
+                  usd : +(theText), 
+                });
                 }}
               
-            />
-
-             
-          </View>
+                />
+            </View>
 
           <View style={styles.textInputCont}>
           <Text>GBP : {this.state.gbp}</Text>
             <TextInput
-              defaultValue = {this.state.gbp}
-              placeholder = "GBP"
+              defaultValue = " "
+              placeholder = {" "}
               style={styles.txtBox}
               onChangeText={ (theText) => {
                 this.setState({
@@ -118,8 +117,8 @@ export default class App extends Component{
           <View style={styles.textInputCont}>
           <Text>btc : {this.state.btc}</Text>
             <TextInput
-              defaultValue = {this.state.btc}
-              placeholder = "BTC"
+              defaultValue = " "
+              placeholder = {" "}
               style={styles.txtBox}
               onChangeText={ (theText) => {
                 this.setState({
@@ -133,8 +132,8 @@ export default class App extends Component{
           <View style={styles.textInputCont}>
           <Text>eth : {this.state.eth}</Text>
             <TextInput
-              defaultValue = {this.state.eth}
-              placeholder = "ETH"
+              defaultValue = " "
+              placeholder = {" "}
               style={styles.txtBox}
               onChangeText={ (theText) => {
                 this.setState({
@@ -149,8 +148,8 @@ export default class App extends Component{
           <View style={styles.textInputCont}>
           <Text>DGX : {this.state.dogecoin}</Text>
             <TextInput
-              defaultValue = {this.state.dogecoin}
-              placeholder = "Doge Coin"
+              defaultValue = " "
+              placeholder = {" "}
               style={styles.txtBox}
               onChangeText={ (theText) => {
                 this.setState({
@@ -160,15 +159,15 @@ export default class App extends Component{
             />
           </View>
 
-          <TouchableHighlight
-          onPress={()=> this.updateState}>
+          <TouchableOpacity
+          onPress={this.updateState}>
             <View style={styles.TouchableHighlight}>
               <Text style={styles.whiteText}>Convert!</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
 
           <TouchableHighlight
-          onPress={()=> this.clear}>
+          onPress={this.clear}>
             <View style={styles.TouchableHighlight}>
               <Text style={styles.whiteText}>Clear!</Text>
             </View>
@@ -181,14 +180,13 @@ export default class App extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#ffffff',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
   },
 
   headerContainer: {
-    height:windowHeight/2,
+    height:windowHeight*.1,
     width: windowWidth,
     backgroundColor: '#8ACDEA',
 
@@ -198,7 +196,7 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer1:{
-    height:windowHeight*.5,
+    height:windowHeight,
 
     width: windowWidth,
     backgroundColor: '#8ACDEA',
@@ -208,34 +206,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   headerText:{
     color: '#746D75',
-    fonstSize: 30,
-    fontStyle: 'bold',
+    fontSize: 30,
   },
 
   textInputCont:{
-    height: windowHeight/2/8,
-    width: windowWidth*.75,
+    height: windowHeight/8,
+    width: windowWidth * 2,
 
     color:'#8ACDEA',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 0,
 
 
   },
 
   txtBox:{
-    height: 50, borderColor: 'gray', borderWidth: 1, margin: 10, color:'#746D75', backgroundColor:'#EDE6F2', width: 50,
+    height: 50, borderColor: 'gray', borderWidth: 1, margin: 5, color:'#746D75', backgroundColor:'#EDE6F2', width: 50,
   },
 
   TouchableHighlight:{
-    height: windowHeight/10, borderColor: 'gray', borderWidth: 1, margin: 10, color:'#746D75', backgroundColor:'#EDE6F2', width: windowWidth*.75,
+    height: windowHeight/15, borderColor: 'gray', borderWidth: 1, margin: 5, color:'#746D75', backgroundColor:'#EDE6F2', width: windowWidth*.5, textAlign: 'center',
   },
 
   whiteText:{
     color: '#000000',
-    fonstSize: 30,
-    fontStyle: 'bold',
+    fontSize: 30,
   },
 });
